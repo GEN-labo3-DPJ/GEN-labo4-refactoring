@@ -23,6 +23,10 @@ public class Order {
         return products.get(j);
     }
 
+    public List<Product> getProducts(){
+        return this.products;
+    }
+
     public void AddProduct(Product product) {
         products.add(product);
     }

@@ -9,10 +9,7 @@ public class OrdersWriter {
 
     public String getContents() {
         StringBuffer sb = new StringBuffer("{\"orders\": [");
-
-        for (int i = 0; i < orders.getOrdersCount(); i++) {
-            orderWriter(orders.getOrder(i), sb);
-        }
+        orders.getOrders().stream().forEach(o -> orderWriter(o, sb));
 
         if (orders.getOrdersCount() > 0) {
             sb.delete(sb.length() - 2, sb.length());
@@ -27,9 +24,7 @@ public class OrdersWriter {
         sb.append(order.getOrderId());
         sb.append(", ");
         sb.append("\"products\": [");
-        for (int j = 0; j < order.getProductsCount(); j++) {
-            productWriter(order.getProduct(j), sb);
-        }
+        order.getProducts().stream().forEach(p -> productWriter(p, sb));
 
         if (order.getProductsCount() > 0) {
             sb.delete(sb.length() - 2, sb.length());

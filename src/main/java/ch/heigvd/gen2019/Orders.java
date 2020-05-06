@@ -6,6 +6,10 @@ import java.util.List;
 public class Orders {
     private List<Order> orders = new ArrayList<Order>();
 
+    public List<Order> getOrders(){
+        return orders;
+    }
+
     public void AddOrder(Order order) {
         orders.add(order);
     }
