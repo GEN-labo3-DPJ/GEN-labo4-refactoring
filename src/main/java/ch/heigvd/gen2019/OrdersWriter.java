@@ -9,46 +9,7 @@ public class OrdersWriter {
 
     public String getContents() {
         StringBuffer sb = new StringBuffer("{\"orders\": [");
-
-        for (int i = 0; i < orders.getOrdersCount(); i++) {
-            Order order = orders.getOrder(i);
-            sb.append("{");
-            sb.append("\"id\": ");
-            sb.append(order.getOrderId());
-            sb.append(", ");
-            sb.append("\"products\": [");
-            for (int j = 0; j < order.getProductsCount(); j++) {
-                Product product = order.getProduct(j);
-
-                sb.append("{");
-                sb.append("\"code\": \"");
-                sb.append(product.getCode());
-                sb.append("\", ");
-                sb.append("\"color\": \"");
-                sb.append(getColorFor(product));
-                sb.append("\", ");
-
-                if (product.getSize() != Product.SIZE_NOT_APPLICABLE) {
-                    sb.append("\"size\": \"");
-                    sb.append(getSizeFor(product));
-                    sb.append("\", ");
-                }
-
-                sb.append("\"price\": ");
-                sb.append(product.getPrice());
-                sb.append(", ");
-                sb.append("\"currency\": \"");
-                sb.append(product.getCurrency());
-                sb.append("\"}, ");
-            }
-
-            if (order.getProductsCount() > 0) {
-                sb.delete(sb.length() - 2, sb.length());
-            }
-
-            sb.append("]");
-            sb.append("}, ");
-        }
+        orders.getOrders().stream().forEach(o -> orderWriter(o, sb));
 
         if (orders.getOrdersCount() > 0) {
             sb.delete(sb.length() - 2, sb.length());
@@ -57,23 +18,43 @@ public class OrdersWriter {
         return sb.append("]}").toString();
     }
 
-    private String getSizeFor(Product product) {
-        switch (product.getSize()) {
-            case 1:
-                return "XS";
-            case 2:
-                return "S";
-            case 3:
-                return "M";
-            case 4:
-                return "L";
-            case 5:
-                return "XL";
-            case 6:
-                return "XXL";
-            default:
-                return "Invalid Size";
+    public void orderWriter(Order order, StringBuffer sb){
+        sb.append("{");
+        sb.append("\"id\": ");
+        sb.append(order.getOrderId());
+        sb.append(", ");
+        sb.append("\"products\": [");
+        order.getProducts().stream().forEach(p -> productWriter(p, sb));
+
+        if (order.getProductsCount() > 0) {
+            sb.delete(sb.length() - 2, sb.length());
         }
+
+        sb.append("]");
+        sb.append("}, ");
+    }
+
+    public void productWriter(Product product, StringBuffer sb){
+        sb.append("{");
+        sb.append("\"code\": \"");
+        sb.append(product.getCode());
+        sb.append("\", ");
+        sb.append("\"color\": \"");
+        sb.append(getColorFor(product));
+        sb.append("\", ");
+
+        if (product.getSize() != Product.SIZE_NOT_APPLICABLE) {
+            sb.append("\"size\": \"");
+            sb.append(product.getSizeFor());
+            sb.append("\", ");
+        }
+
+        sb.append("\"price\": ");
+        sb.append(product.getPrice());
+        sb.append(", ");
+        sb.append("\"currency\": \"");
+        sb.append(product.getCurrency());
+        sb.append("\"}, ");
     }
 
     private String getColorFor(Product product) {
