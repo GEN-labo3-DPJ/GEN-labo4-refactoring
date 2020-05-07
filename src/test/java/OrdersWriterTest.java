@@ -1,7 +1,7 @@
 import ch.heigvd.gen2019.Order;
 import ch.heigvd.gen2019.Orders;
 import ch.heigvd.gen2019.OrdersWriter;
-import ch.heigvd.gen2019.Product;
+import ch.heigvd.gen2019.products.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;

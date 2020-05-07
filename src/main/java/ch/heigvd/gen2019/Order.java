@@ -1,5 +1,7 @@
 package ch.heigvd.gen2019;
 
+import ch.heigvd.gen2019.products.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
