@@ -1,4 +1,4 @@
-package ch.heigvd.gen2019;
+package ch.heigvd.gen2019.products;
 
 public class Product {
     public static final int SIZE_NOT_APPLICABLE = -1;
@@ -36,7 +36,7 @@ public class Product {
         return currency;
     }
 
-    String getSizeFor() {
+    public String getSizeFor() {
         switch (getSize()) {
             case 1:
                 return "XS";
@@ -53,5 +53,41 @@ public class Product {
             default:
                 return "Invalid Size";
         }
+    }
+
+    public String getColorFor() {
+        switch (getColor()) {
+            case 1:
+                return "blue";
+            case 2:
+                return "red";
+            case 3:
+                return "yellow";
+            default:
+                return "no color";
+        }
+    }
+
+    public void productWriter(StringBuffer sb){
+        sb.append("{");
+        sb.append("\"code\": \"");
+        sb.append(getCode());
+        sb.append("\", ");
+        sb.append("\"color\": \"");
+        sb.append(getColorFor());
+        sb.append("\", ");
+
+        if (getSize() != SIZE_NOT_APPLICABLE) {
+            sb.append("\"size\": \"");
+            sb.append(getSizeFor());
+            sb.append("\", ");
+        }
+
+        sb.append("\"price\": ");
+        sb.append(getPrice());
+        sb.append(", ");
+        sb.append("\"currency\": \"");
+        sb.append(getCurrency());
+        sb.append("\"}, ");
     }
 }
