@@ -21,4 +21,15 @@ public class Orders {
     public Order getOrder(int i) {
         return orders.get(i);
     }
+
+    public String getContents() {
+        StringBuffer sb = new StringBuffer("{\"orders\": [");
+        getOrders().stream().forEach(o -> o.orderWriter(sb));
+
+        if (getOrdersCount() > 0) {
+            sb.delete(sb.length() - 2, sb.length());
+        }
+
+        return sb.append("]}").toString();
+    }
 }
