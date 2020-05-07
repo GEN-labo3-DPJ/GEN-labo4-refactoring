@@ -1,7 +1,5 @@
 package ch.heigvd.gen2019;
 
-import ch.heigvd.gen2019.products.Product;
-
 public class OrdersWriter {
     private Orders orders;
 
@@ -26,7 +24,7 @@ public class OrdersWriter {
         sb.append(order.getOrderId());
         sb.append(", ");
         sb.append("\"products\": [");
-        order.getProducts().stream().forEach(p -> productWriter(p, sb));
+        order.getProducts().stream().forEach(p -> p.productWriter(sb));
 
         if (order.getProductsCount() > 0) {
             sb.delete(sb.length() - 2, sb.length());
@@ -36,26 +34,4 @@ public class OrdersWriter {
         sb.append("}, ");
     }
 
-    public void productWriter(Product product, StringBuffer sb){
-        sb.append("{");
-        sb.append("\"code\": \"");
-        sb.append(product.getCode());
-        sb.append("\", ");
-        sb.append("\"color\": \"");
-        sb.append(product.getColorFor());
-        sb.append("\", ");
-
-        if (product.getSize() != Product.SIZE_NOT_APPLICABLE) {
-            sb.append("\"size\": \"");
-            sb.append(product.getSizeFor());
-            sb.append("\", ");
-        }
-
-        sb.append("\"price\": ");
-        sb.append(product.getPrice());
-        sb.append(", ");
-        sb.append("\"currency\": \"");
-        sb.append(product.getCurrency());
-        sb.append("\"}, ");
-    }
 }
