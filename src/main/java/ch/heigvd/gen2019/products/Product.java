@@ -2,6 +2,8 @@ package ch.heigvd.gen2019.products;
 
 public class Product {
     public static final int SIZE_NOT_APPLICABLE = -1;
+    private static final String[] sizes=new String[]{"XS","S", "M", "L","XL","XXL"};
+    private static final String[] colors=new String[]{"blue","red","yellow"};
     private String code;
     private int color;
     private int size;
@@ -37,34 +39,24 @@ public class Product {
     }
 
     public String getSizeFor() {
-        switch (getSize()) {
-            case 1:
-                return "XS";
-            case 2:
-                return "S";
-            case 3:
-                return "M";
-            case 4:
-                return "L";
-            case 5:
-                return "XL";
-            case 6:
-                return "XXL";
-            default:
-                return "Invalid Size";
+        if(getSize()>sizes.length || getSize()<1)
+        {
+            return "Invalid Size";
+        }
+        else
+        {
+            return sizes[getSize()-1];
         }
     }
 
     public String getColorFor() {
-        switch (getColor()) {
-            case 1:
-                return "blue";
-            case 2:
-                return "red";
-            case 3:
-                return "yellow";
-            default:
-                return "no color";
+        if(getColor()>colors.length || getColor()<1)
+        {
+            return "no color";
+        }
+        else
+        {
+            return colors[getColor()-1];
         }
     }
 
